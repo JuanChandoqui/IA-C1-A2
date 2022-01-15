@@ -8,7 +8,7 @@ from PyQt5 import uic
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('./Views/main.ui', self) 
+        uic.loadUi('./Views/main.ui', self)
     
     
 if __name__ == '__main__':
