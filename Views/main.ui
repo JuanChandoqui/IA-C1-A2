@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>577</width>
-    <height>600</height>
+    <height>681</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <widget class="QSpinBox" name="spinBox_tamPobIni">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>230</x>
       <y>140</y>
       <width>41</width>
       <height>31</height>
@@ -33,7 +33,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>190</x>
       <y>100</y>
       <width>211</width>
       <height>20</height>
@@ -50,7 +50,7 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>180</x>
       <y>150</y>
       <width>41</width>
       <height>16</height>
@@ -95,7 +95,7 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>230</x>
       <y>230</y>
       <width>131</width>
       <height>20</height>
@@ -352,7 +352,7 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>530</y>
+      <y>620</y>
       <width>151</width>
       <height>41</height>
      </rect>
@@ -363,6 +363,61 @@ background-color: rgb(234, 156, 0);</string>
     </property>
     <property name="text">
      <string>INICIAR ALGORITMO</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_Maximizar">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>560</y>
+      <width>95</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Maximizar</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>520</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
+    </property>
+    <property name="text">
+     <string>GRÁFICA</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_Minimizar">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>560</y>
+      <width>95</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Minimizar</string>
     </property>
    </widget>
   </widget>
