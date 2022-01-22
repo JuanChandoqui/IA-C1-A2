@@ -3,7 +3,7 @@ import random
 
 
 class Poblacion:
-    def __init__(self, tamPobIni, TamPobMax, resolucion_x, resolucion_y, x_min, x_max, y_min, y_max, pmi, pmg):
+    def __init__(self, tamPobIni, TamPobMax, resolucion_x, resolucion_y, x_min, x_max, y_min, y_max, pmi, pmg, niteraciones):
         self.tamPobIni = tamPobIni
         self.tamPobMax = TamPobMax
         self.resolucion_x = resolucion_x
@@ -14,6 +14,7 @@ class Poblacion:
         self.y_max = y_max
         self.pmi = pmi
         self.pmg = pmg
+        self.niteraciones=niteraciones
         self.calculate_rx()
         self.calculate_ry()
         self.calculate_npx()
