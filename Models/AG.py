@@ -157,5 +157,5 @@ class Individuo:
         return sqrt(self.x) - (3*log(((self.x**2)+(self.y**2))*(-self.x+(2*self.y)-(1/3))))
 
 
-if __name__ == '__main__':
-    Poblacion(5, 100, 0.7, 0.7, 3, 15, 50, 85, 0.481, 0.002)
+# if __name__ == '__main__':
+#     Poblacion(5, 100, 0.7, 0.7, 3, 15, 50, 85, 0.481, 0.002)

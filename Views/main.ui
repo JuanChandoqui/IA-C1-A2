@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>881</width>
-    <height>592</height>
+    <height>594</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -357,8 +357,8 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>500</y>
+      <x>380</x>
+      <y>540</y>
       <width>151</width>
       <height>41</height>
      </rect>
@@ -374,8 +374,8 @@ background-color: rgb(234, 156, 0);</string>
    <widget class="QRadioButton" name="radioButton_Maximizar">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>440</y>
+      <x>340</x>
+      <y>480</y>
       <width>95</width>
       <height>20</height>
      </rect>
@@ -390,8 +390,8 @@ background-color: rgb(234, 156, 0);</string>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>385</x>
-      <y>400</y>
+      <x>405</x>
+      <y>440</y>
       <width>71</width>
       <height>20</height>
      </rect>
@@ -413,8 +413,8 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
    <widget class="QRadioButton" name="radioButton_Minimizar">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>440</y>
+      <x>470</x>
+      <y>480</y>
       <width>95</width>
       <height>20</height>
      </rect>
@@ -523,6 +523,58 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
     </property>
     <property name="text">
      <string>Por generación</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_16">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>350</y>
+      <width>181</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Numero de iteracciones</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_numIteraciones">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>380</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>390</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Iteraciones</string>
     </property>
    </widget>
   </widget>
