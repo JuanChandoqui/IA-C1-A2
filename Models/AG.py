@@ -88,10 +88,16 @@ class Poblacion:
         self.PeorCaso()
         self.Promedio()
         self.PODA()
+        contador = 0
+        for i in self.individuos:
+            contador += 1
+            print(
+                f'{contador}.- {i.getGenotipo()}, i={i.i}, j={i.j}, x={i.x}, y={i.y}, aptitud={i.calculate_aptitud()}')
+
     
     def generaciones(self):
         for generacion in range(1,self.niteraciones):
-            # print(f'------------------ generacion {generacion} -------------------')
+            print(f'------------------ generacion {generacion} -------------------')
             self.procesos()
         Grafica(self.mejores, self.peores, self.promedio)
         print(f'Mejores casos {self.mejores}')
@@ -177,15 +183,25 @@ class Poblacion:
     def PODA(self):
         # print(f'N individuos {len(self.individuos)}')
         temp_individuos = []
+        for index in range(len(self.individuos)): # Elimina elementos que no tiene solucion fitness
+            if self.individuos[index].calculate_aptitud() != 0:
+                temp_individuos.append(self.individuos[index])
+        self.individuos = temp_individuos
+        
         aptitudes = [i.calculate_aptitud() for i in self.individuos]
         data = {'individuo': self.individuos, 'aptitud':aptitudes}
         df = DataFrame(data)
-        if len(self.individuos) > self.tamPobMax:
+        
+        # print(df.drop_duplicates(['aptitud'])['individuo'])
+        temp_individuos = list(df.drop_duplicates(['aptitud'])['individuo']) # Elimina elementos repetidos (clones)
+        self.individuos = temp_individuos
+        
+        if len(self.individuos) > self.tamPobMax: # Cuando excede el tamaño de la poblacion
             if self.opcion == 0:
                df = df.sort_values(by='aptitud',ascending=False)
             else:
                 df = df.sort_values(by='aptitud',ascending=True)
-            # print(df)
+            print(df.drop_duplicates(['aptitud'])['individuo'])
             temp_individuos = list(df['individuo'][0:self.tamPobMax])
             # print(df['individuo'][0:self.tamPobMax])
             self.individuos = temp_individuos
@@ -209,10 +225,15 @@ class Individuo:
         self.x = round(a + (self.i * rx), 2)       
         self.y = round(c + (self.j * ry), 2)
 
-    def calculate_aptitud(self):
-        return sqrt(self.x) - (3*log(((self.x**2)+(self.y**2))*(-self.x+(2*self.y)-(1/3))))
-        # return self.x**2 + math.sin(self.y)
-        # return (self.x**2 + self.y**2) * math.asin(math.pi/(self.x+self.y))
+    def calculate_aptitud(self):  # fitness
+        fitness = 0
+        try:
+            fitness = sqrt(self.x) - (3*log(((self.x**2)+(self.y**2))*(-self.x+(2*self.y)-(1/3))))
+        except ValueError:
+            pass
+        return fitness
+        
+
 
 # if __name__ == '__main__':
-#     Poblacion(5, 100, 0.7, 0.7, , 15, -1, 85, 0.481, 0.002, 5, 1)
+#     Poblacion(10, 15, 0.7, 0.7, 3, 10, 50, 85, 0.481, 0.002,10,0)
