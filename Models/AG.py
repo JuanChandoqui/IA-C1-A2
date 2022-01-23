@@ -1,9 +1,10 @@
 from math import log, sqrt
 import random
+from statistics import mean
 
 
 class Poblacion:
-    def __init__(self, tamPobIni, TamPobMax, resolucion_x, resolucion_y, x_min, x_max, y_min, y_max, pmi, pmg, niteraciones):
+    def __init__(self, tamPobIni, TamPobMax, resolucion_x, resolucion_y, x_min, x_max, y_min, y_max, pmi, pmg, niteraciones,opcion):
         self.tamPobIni = tamPobIni
         self.tamPobMax = TamPobMax
         self.resolucion_x = resolucion_x
@@ -15,6 +16,15 @@ class Poblacion:
         self.pmi = pmi
         self.pmg = pmg
         self.niteraciones=niteraciones
+        self.opcion=opcion
+        self.mejores = []
+        self.peores = []
+        self.promedio = []
+        self.calcular_datos()
+        self.inicializar()
+        self.generaciones()
+
+    def calcular_datos(self):
         self.calculate_rx()
         self.calculate_ry()
         self.calculate_npx()
@@ -23,11 +33,6 @@ class Poblacion:
         self.calculate_rango_j()
         self.calculate_nbx()
         self.calculate_nby()
-        self.inicializar()
-        self.evaluar_individuos()
-        self.cruza()
-        self.mutacion()
-        self.evaluar_individuos()
 
     def calculate_rx(self):
         self.rx = self.x_max - self.x_min
@@ -54,13 +59,33 @@ class Poblacion:
         self.nby = len(bin(self.npy)[2:])
 
     def inicializar(self):
+        print('---------------poblacion inicial-------------------------')
         self.individuos = []
         for _ in range(self.tamPobIni):
             genotipo = [str(random.randint(0, 1))
                         for _ in range(self.nbx+self.nby)]
             self.individuos.append(Individuo(
                 genotipo, self.nbx, self.nby, self.x_min, self.y_min, self.resolucion_x, self.resolucion_y))
-
+        self.procesos()
+    
+    def procesos(self):
+        self.evaluar_individuos()
+        self.cruza()
+        self.mutacion()
+        self.evaluar_individuos()
+        self.MejorCaso()
+        self.PeorCaso()
+        self.Promedio()
+    
+    def generaciones(self):
+        for generacion in range(1,self.niteraciones):
+            print(f'------------------ generacion {generacion} -------------------')
+            self.procesos()
+        # graficar(self.mejores,self.peores,self.promedio)
+        print(f'Mejores casos {self.mejores}')
+        print(f'Promedio {self.promedio}')
+        print(f'Peores casos {self.peores}')
+    
     def evaluar_individuos(self):
         temp_individuos = []
         contador = 0
@@ -69,11 +94,8 @@ class Poblacion:
             if individuo.i >= self.rango_i[0] and individuo.i <= self.rango_i[1] and individuo.j >= self.rango_j[0] and individuo.j <= self.rango_j[1]:
                 temp_individuos.append(individuo)
         self.individuos = temp_individuos
-        print('########## individuos aceptados #####################')
-        print(len(self.individuos))
 
     def cruza(self):
-        print(f'numero de bits totales por individuo:{self.nbx+self.nby}')
         temp_individuos = self.individuos
         padres = []
         self.hijos = []
@@ -107,7 +129,6 @@ class Poblacion:
                 self.hijos.append(hijo2)
             else:
                 self.individuos.pop(indice_individuo[0])
-        print('individuos nuevos: ', len(self.hijos))
 
     def mutacion(self):
         for index_individuo in range(len(self.hijos)):
@@ -124,14 +145,30 @@ class Poblacion:
         self.individuos = self.individuos + \
             [Individuo(i, self.nbx, self.nby, self.x_min, self.y_min,
                        self.resolucion_x, self.resolucion_y) for i in self.hijos]
-        print(
-            f'----individuos actuales en la poblacion {len(self.individuos)} -----')
+
         contador = 0
         for i in self.individuos:
             contador += 1
             print(
                 f'{contador}.- {i.getGenotipo()}, i={i.i}, j={i.j}, x={i.x}, y={i.y}, aptitud={i.calculate_aptitud()}')
 
+    def MejorCaso(self):
+        aptitudes = [i.calculate_aptitud() for i in self.individuos]
+        if self.opcion == 0:
+            self.mejores.append(max(aptitudes))
+        else:
+            self.mejores.append(min(aptitudes))
+    
+    def PeorCaso(self):
+        aptitudes = [i.calculate_aptitud() for i in self.individuos]
+        if self.opcion == 0:
+            self.peores.append(min(aptitudes))
+        else:
+            self.peores.append(max(aptitudes))
+    
+    def Promedio(self):
+        aptitudes = [i.calculate_aptitud() for i in self.individuos]
+        self.promedio.append(mean(aptitudes))
 
 class Individuo:
     def __init__(self, genotipo, nbx, nby, x_min, y_min, rx, ry):
@@ -153,7 +190,6 @@ class Individuo:
         self.y = round(c + (self.j * ry), 2)
 
     def calculate_aptitud(self):  # fitness
-        # return self.x**2 + math.sin(self.y)
         return sqrt(self.x) - (3*log(((self.x**2)+(self.y**2))*(-self.x+(2*self.y)-(1/3))))
 
 
