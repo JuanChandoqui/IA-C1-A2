@@ -78,31 +78,15 @@ class Poblacion:
         self.cruza()
         self.mutacion()
         self.evaluar_individuos()
-        contador = 0
-        for i in self.individuos:
-            contador += 1
-            print(
-                f'{contador}.- {i.getGenotipo()}, i={i.i}, j={i.j}, x={i.x}, y={i.y}, aptitud={i.calculate_aptitud()}')
-
         self.MejorCaso()
         self.PeorCaso()
         self.Promedio()
         self.PODA()
-        contador = 0
-        for i in self.individuos:
-            contador += 1
-            print(
-                f'{contador}.- {i.getGenotipo()}, i={i.i}, j={i.j}, x={i.x}, y={i.y}, aptitud={i.calculate_aptitud()}')
-
     
     def generaciones(self):
         for generacion in range(1,self.niteraciones):
-            print(f'------------------ generacion {generacion} -------------------')
             self.procesos()
         Grafica(self.mejores, self.peores, self.promedio)
-        print(f'Mejores casos {self.mejores}')
-        print(f'Promedio {self.promedio}')
-        print(f'Peores casos {self.peores}')
     
     def evaluar_individuos(self):
         temp_individuos = []
@@ -181,7 +165,6 @@ class Poblacion:
         self.promedio.append(mean(aptitudes))
     
     def PODA(self):
-        # print(f'N individuos {len(self.individuos)}')
         temp_individuos = []
         for index in range(len(self.individuos)): # Elimina elementos que no tiene solucion fitness
             if self.individuos[index].calculate_aptitud() != 0:
@@ -192,7 +175,6 @@ class Poblacion:
         data = {'individuo': self.individuos, 'aptitud':aptitudes}
         df = DataFrame(data)
         
-        # print(df.drop_duplicates(['aptitud'])['individuo'])
         temp_individuos = list(df.drop_duplicates(['aptitud'])['individuo']) # Elimina elementos repetidos (clones)
         self.individuos = temp_individuos
         
@@ -201,9 +183,7 @@ class Poblacion:
                df = df.sort_values(by='aptitud',ascending=False)
             else:
                 df = df.sort_values(by='aptitud',ascending=True)
-            print(df.drop_duplicates(['aptitud'])['individuo'])
             temp_individuos = list(df['individuo'][0:self.tamPobMax])
-            # print(df['individuo'][0:self.tamPobMax])
             self.individuos = temp_individuos
             
 class Individuo:
@@ -233,7 +213,6 @@ class Individuo:
             pass
         return fitness
         
-
 
 # if __name__ == '__main__':
 #     Poblacion(10, 15, 0.7, 0.7, 3, 10, 50, 85, 0.481, 0.002,10,0)
