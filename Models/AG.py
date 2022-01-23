@@ -1,6 +1,8 @@
+from asyncio.windows_events import NULL
 from math import log, sqrt
 import random
 from statistics import mean
+from pandas import DataFrame
 
 
 class Poblacion:
@@ -59,7 +61,6 @@ class Poblacion:
         self.nby = len(bin(self.npy)[2:])
 
     def inicializar(self):
-        print('---------------poblacion inicial-------------------------')
         self.individuos = []
         for _ in range(self.tamPobIni):
             genotipo = [str(random.randint(0, 1))
@@ -67,30 +68,36 @@ class Poblacion:
             self.individuos.append(Individuo(
                 genotipo, self.nbx, self.nby, self.x_min, self.y_min, self.resolucion_x, self.resolucion_y))
         self.procesos()
+        
     
     def procesos(self):
         self.evaluar_individuos()
         self.cruza()
         self.mutacion()
         self.evaluar_individuos()
+        # contador = 0
+        # for i in self.individuos:
+        #     contador += 1
+        #     print(
+        #         f'{contador}.- {i.getGenotipo()}, i={i.i}, j={i.j}, x={i.x}, y={i.y}, aptitud={i.calculate_aptitud()}')
+
         self.MejorCaso()
         self.PeorCaso()
         self.Promedio()
+        self.PODA()
     
     def generaciones(self):
         for generacion in range(1,self.niteraciones):
-            print(f'------------------ generacion {generacion} -------------------')
+            # print(f'------------------ generacion {generacion} -------------------')
             self.procesos()
         # graficar(self.mejores,self.peores,self.promedio)
-        print(f'Mejores casos {self.mejores}')
-        print(f'Promedio {self.promedio}')
-        print(f'Peores casos {self.peores}')
+        # print(f'Mejores casos {self.mejores}')
+        # print(f'Promedio {self.promedio}')
+        # print(f'Peores casos {self.peores}')
     
     def evaluar_individuos(self):
         temp_individuos = []
-        contador = 0
         for individuo in self.individuos:
-            contador += 1
             if individuo.i >= self.rango_i[0] and individuo.i <= self.rango_i[1] and individuo.j >= self.rango_j[0] and individuo.j <= self.rango_j[1]:
                 temp_individuos.append(individuo)
         self.individuos = temp_individuos
@@ -146,12 +153,6 @@ class Poblacion:
             [Individuo(i, self.nbx, self.nby, self.x_min, self.y_min,
                        self.resolucion_x, self.resolucion_y) for i in self.hijos]
 
-        contador = 0
-        for i in self.individuos:
-            contador += 1
-            print(
-                f'{contador}.- {i.getGenotipo()}, i={i.i}, j={i.j}, x={i.x}, y={i.y}, aptitud={i.calculate_aptitud()}')
-
     def MejorCaso(self):
         aptitudes = [i.calculate_aptitud() for i in self.individuos]
         if self.opcion == 0:
@@ -169,7 +170,22 @@ class Poblacion:
     def Promedio(self):
         aptitudes = [i.calculate_aptitud() for i in self.individuos]
         self.promedio.append(mean(aptitudes))
-
+    
+    def PODA(self):
+        # print(f'N individuos {len(self.individuos)}')
+        temp_individuos = []
+        aptitudes = [i.calculate_aptitud() for i in self.individuos]
+        data = {'individuo': self.individuos, 'aptitud':aptitudes}
+        df = DataFrame(data)
+        if len(self.individuos) > self.tamPobMax:
+            if self.opcion == 0:
+               df = df.sort_values(by='aptitud',ascending=False)
+            else:
+                df = df.sort_values(by='aptitud',ascending=True)
+            # print(df)
+            temp_individuos = list(df['individuo'][0:self.tamPobMax])
+            # print(df['individuo'][0:self.tamPobMax])
+            self.individuos = temp_individuos
 class Individuo:
     def __init__(self, genotipo, nbx, nby, x_min, y_min, rx, ry):
         self.genotipo = genotipo
@@ -194,4 +210,4 @@ class Individuo:
 
 
 if __name__ == '__main__':
-    Poblacion(50, 100, 0.7, 0.7, 3, 15, 50, 85, 0.481, 0.002,5,1)
+    Poblacion(10, 15, 0.7, 0.7, 3, 15, 50, 85, 0.481, 0.002,50,0)
