@@ -1,5 +1,6 @@
 from asyncio.windows_events import NULL
 from math import log, sqrt
+import math
 import random
 from statistics import mean
 from pandas import DataFrame
@@ -77,11 +78,11 @@ class Poblacion:
         self.cruza()
         self.mutacion()
         self.evaluar_individuos()
-        # contador = 0
-        # for i in self.individuos:
-        #     contador += 1
-        #     print(
-        #         f'{contador}.- {i.getGenotipo()}, i={i.i}, j={i.j}, x={i.x}, y={i.y}, aptitud={i.calculate_aptitud()}')
+        contador = 0
+        for i in self.individuos:
+            contador += 1
+            print(
+                f'{contador}.- {i.getGenotipo()}, i={i.i}, j={i.j}, x={i.x}, y={i.y}, aptitud={i.calculate_aptitud()}')
 
         self.MejorCaso()
         self.PeorCaso()
@@ -188,6 +189,7 @@ class Poblacion:
             temp_individuos = list(df['individuo'][0:self.tamPobMax])
             # print(df['individuo'][0:self.tamPobMax])
             self.individuos = temp_individuos
+            
 class Individuo:
     def __init__(self, genotipo, nbx, nby, x_min, y_min, rx, ry):
         self.genotipo = genotipo
@@ -204,12 +206,13 @@ class Individuo:
         self.j = int(''.join(self.bits_j), 2)
 
     def set_x_y(self, a, c, rx, ry):
-        self.x = round(a + (self.i * rx), 2)
+        self.x = round(a + (self.i * rx), 2)       
         self.y = round(c + (self.j * ry), 2)
 
-    def calculate_aptitud(self):  # fitness
+    def calculate_aptitud(self):
         return sqrt(self.x) - (3*log(((self.x**2)+(self.y**2))*(-self.x+(2*self.y)-(1/3))))
-
+        # return self.x**2 + math.sin(self.y)
+        # return (self.x**2 + self.y**2) * math.asin(math.pi/(self.x+self.y))
 
 # if __name__ == '__main__':
-#     Poblacion(5, 100, 0.7, 0.7, 3, 15, 50, 85, 0.481, 0.002, 5, 1)
+#     Poblacion(5, 100, 0.7, 0.7, , 15, -1, 85, 0.481, 0.002, 5, 1)
