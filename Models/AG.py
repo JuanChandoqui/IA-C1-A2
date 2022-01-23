@@ -2,6 +2,8 @@ from math import log, sqrt
 import random
 from statistics import mean
 
+from Models.grafica import Grafica
+
 
 class Poblacion:
     def __init__(self, tamPobIni, TamPobMax, resolucion_x, resolucion_y, x_min, x_max, y_min, y_max, pmi, pmg, niteraciones,opcion):
@@ -81,7 +83,7 @@ class Poblacion:
         for generacion in range(1,self.niteraciones):
             print(f'------------------ generacion {generacion} -------------------')
             self.procesos()
-        # graficar(self.mejores,self.peores,self.promedio)
+        Grafica(self.mejores, self.peores, self.promedio)
         print(f'Mejores casos {self.mejores}')
         print(f'Promedio {self.promedio}')
         print(f'Peores casos {self.peores}')
