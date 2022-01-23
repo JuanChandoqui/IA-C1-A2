@@ -45,17 +45,6 @@ class Window(QMainWindow):
                 self.dialogoDeMensaje("El numero del tamaño de la población inicial no puede ser mayor al tamaño de la población máxima")
         else:
             self.dialogoDeMensaje("El tamaño de la población inicial no puede ser 0, introduzca un valor mayor a 0")
-        # print(f'tamaño poblacion inicial: {tamPobIni}')
-        # print(f'tamaño poblacion maxima: {tamPobMax}')
-        # print(f'resolucion en X: {resolucionX}')
-        # print(f'resolucion en Y: {resolucionY}')
-        # print(f'X MINIMO: {rangoXmin}')
-        # print(f'Y MINIMO: {rangoYmin}')
-        # print(f'X MAXIMO: {rangoXmax}')
-        # print(f'Y MAXIMO: {rangoYmax}')
-        # print(f'Probabilidad de Mutacion por Individuo: {probMutacionInd}')
-        # print(f'Probabilidad de Mutacion por Gen: {probMutacionGen}')
-        # print(f'Numero de iteraciones: {numIteraciones}')
 
     def dialogoDeMensaje(self, texto:str):
         msg = QMessageBox()
