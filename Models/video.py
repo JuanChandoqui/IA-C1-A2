@@ -4,7 +4,6 @@ def generarVideo():
     #Ubicación de la base de datos
     path = './Resources/Images/'
     archivos = sorted([ int(i.replace('.png','')) for i in os.listdir(path)])
-    print(sorted([ int(i.replace('.png','')) for i in os.listdir(path)]))
     img_array = []
 
     #Leer imagenes
@@ -26,3 +25,9 @@ def generarVideo():
         
     #liberar
     video.release()                                                           
+    
+    #Eliminar imagenes para evitar iteraciones anteriores
+    for x in range (0,len(archivos)):
+        nomArchivo = str(archivos[x])+str('.png')
+        dirArchivo = path + str(nomArchivo)
+        os.remove(dirArchivo)

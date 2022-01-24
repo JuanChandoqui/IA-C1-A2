@@ -1,4 +1,3 @@
-from matplotlib import markers
 import matplotlib.pyplot as plt
 
 class Grafica:
@@ -6,8 +5,6 @@ class Grafica:
         self.mejores = mejores
         self.peores = peores
         self.promedio = promedio
-        # self.generarGrafica()
-        # self.generarGraficaMarcadores()
 
     def generarGrafica(self):
         plt.plot(self.mejores, label="Mejor caso")
@@ -25,8 +22,6 @@ class Grafica:
         plt.ylabel("Y")
         plt.title(f"Numero de generación: {generacion}")
         fig=plt.figure()
-        # plt.ion()
-        # plt.ioff() 
         plt.close(fig)     
         plt.savefig(f'./Resources/Images/{generacion}.png')
         plt.clf()
