@@ -672,7 +672,7 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_graficaPuntos_2">
+   <widget class="QRadioButton" name="radioButton_graficaLineas">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -688,7 +688,7 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Gráfica de lineas</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_graficaPuntos_3">
+   <widget class="QRadioButton" name="radioButton_graficaMarcadores">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -702,6 +702,22 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
     </property>
     <property name="text">
      <string>Gráfica con marcadores</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_graficaPuntos">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>490</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Gráfica Puntos</string>
     </property>
    </widget>
   </widget>
