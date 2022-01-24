@@ -9,7 +9,7 @@ from Models.grafica import Grafica
 
 
 class Poblacion:
-    def __init__(self, tamPobIni, TamPobMax, resolucion_x, resolucion_y, x_min, x_max, y_min, y_max, pmi, pmg, niteraciones,opcion):
+    def __init__(self, tamPobIni, TamPobMax, resolucion_x, resolucion_y, x_min, x_max, y_min, y_max, pmi, pmg, niteraciones,opcion, opcion_grafica):
         self.tamPobIni = tamPobIni
         self.tamPobMax = TamPobMax
         self.resolucion_x = resolucion_x
@@ -22,6 +22,7 @@ class Poblacion:
         self.pmg = pmg
         self.niteraciones=niteraciones
         self.opcion=opcion
+        self.opcion_grafica=opcion_grafica
         self.mejores = []
         self.peores = []
         self.promedio = []
@@ -91,8 +92,12 @@ class Poblacion:
             puntos_x = [ i.x for i in self.individuos]
             puntos_y = [ i.y for i in self.individuos]
             # Grafica.generarGraficaPuntos(puntos_x, puntos_y)
-            
         Grafica(self.mejores, self.peores, self.promedio)
+        if(self.opcion_grafica == 1):
+            Grafica.generarGrafica(self)
+        elif (self.opcion_grafica == 2):
+            Grafica.generarGraficaMarcadores(self)
+        
     
     def evaluar_individuos(self):
         temp_individuos = []

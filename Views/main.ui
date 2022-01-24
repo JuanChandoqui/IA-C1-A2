@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>881</width>
-    <height>630</height>
+    <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -410,11 +410,14 @@ background-color: rgb(234, 156, 0);</string>
     <property name="text">
      <string>Maximizar</string>
     </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>230</x>
       <y>450</y>
       <width>71</width>
       <height>20</height>
@@ -448,6 +451,9 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
     </property>
     <property name="text">
      <string>Minimizar</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_13">
@@ -486,7 +492,7 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
      <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Por individual</string>
+     <string>Por individuo</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox__probMutacionInd">
@@ -517,8 +523,8 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
    <widget class="QDoubleSpinBox" name="doubleSpinBox__probMutacionGen">
     <property name="geometry">
      <rect>
-      <x>745</x>
-      <y>271</y>
+      <x>710</x>
+      <y>270</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -544,7 +550,7 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
      <rect>
       <x>650</x>
       <y>280</y>
-      <width>91</width>
+      <width>41</width>
       <height>20</height>
      </rect>
     </property>
@@ -552,7 +558,7 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
      <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Por generación</string>
+     <string>Por gen</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_16">
@@ -672,13 +678,13 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_graficaLineas">
+   <widget class="QRadioButton" name="radioButton_GraficaLineas">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>489</y>
-      <width>121</width>
-      <height>21</height>
+      <x>120</x>
+      <y>490</y>
+      <width>131</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -687,14 +693,23 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
     <property name="text">
      <string>Gráfica de lineas</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+    <property name="autoRepeat">
+     <bool>true</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>false</bool>
+    </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_graficaMarcadores">
+   <widget class="QRadioButton" name="radioButton_GraficaMarcadores">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>260</x>
       <y>490</y>
       <width>161</width>
-      <height>21</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -703,21 +718,11 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
     <property name="text">
      <string>Gráfica con marcadores</string>
     </property>
-   </widget>
-   <widget class="QRadioButton" name="radioButton_graficaPuntos">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>490</y>
-      <width>121</width>
-      <height>21</height>
-     </rect>
+    <property name="autoRepeat">
+     <bool>true</bool>
     </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Gráfica Puntos</string>
+    <property name="autoExclusive">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>

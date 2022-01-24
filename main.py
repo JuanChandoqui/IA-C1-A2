@@ -9,11 +9,11 @@ class Window(QMainWindow):
         super().__init__()
         uic.loadUi('./Views/main.ui', self)
         self.pushButton_iniciarAlgoritmo.clicked.connect(self.iniciarAlgoritmo)
-        
+        self.radioButton_GraficaLineas.toggled.connect( lambda checked: checked and self.radioButton_GraficaMarcadores.setChecked(False))
+        self.radioButton_GraficaMarcadores.toggled.connect( lambda checked: checked and self.radioButton_GraficaLineas.setChecked(False))
+        self.radioButton_Maximizar.setChecked(True)
 
-    def iniciarAlgoritmo(self):
-       
-        print('BOTON DE INICIAR ALGORITMO....')
+    def iniciarAlgoritmo(self):     
         tamPobIni = int(self.spinBox_tamPobIni.value())
         tamPobMax = int(self.spinBox_tamPobMax.value())
         resolucionX = double(self.doubleSpinBox__resolucionX.value())
@@ -26,19 +26,25 @@ class Window(QMainWindow):
         probMutacionGen = double(self.doubleSpinBox__probMutacionGen.value())
         numIteraciones = int(self.spinBox_numIteraciones.value())
         opcion = 0 #0 --> MAXIMIZAR & 1 --> MINIMIZAR
+        opcion_grafica = 1
+        
+        if (self.radioButton_GraficaLineas.isChecked()):      
+            opcion_grafica = 1
+        elif (self.radioButton_GraficaMarcadores.isChecked()):
+            opcion_grafica = 2
 
         if (tamPobIni > 0):
             if(tamPobIni <= tamPobMax):
                 if(numIteraciones > 0):
-                    if(self.radioButton_Maximizar.isChecked() != False or self.radioButton_Minimizar.isChecked() != False):
+                    if(rangoXmin < rangoYmax or rangoYmin  < rangoYmax):
                         if self.radioButton_Maximizar.isChecked():
                             opcion = 0
-                            Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion)
+                            Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
                         elif self.radioButton_Minimizar.isChecked():      
                             opcion = 1
-                            Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion)
+                            Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
                     else: 
-                        self.dialogoDeMensaje("Elige una opción de gráfica: Maximizar o minimizar")
+                        self.dialogoDeMensaje("Introduce valores validos, no son aceptables para la generación del rango")
                 else:
                     self.dialogoDeMensaje("El numero de iteracciones es invalida, introduce una cantidad valida")
             else:
