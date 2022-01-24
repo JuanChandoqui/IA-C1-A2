@@ -37,12 +37,15 @@ class Window(QMainWindow):
             if(tamPobIni <= tamPobMax):
                 if(numIteraciones > 0):
                     if(rangoXmin < rangoYmax or rangoYmin  < rangoYmax):
-                        if self.radioButton_Maximizar.isChecked():
-                            opcion = 0
-                            Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
-                        elif self.radioButton_Minimizar.isChecked():      
-                            opcion = 1
-                            Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
+                        if((rangoXmin > 0 and rangoYmin > 0) or (rangoXmax > 0 and rangoYmax > 0)):
+                            if self.radioButton_Maximizar.isChecked():
+                                opcion = 0
+                                Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
+                            elif self.radioButton_Minimizar.isChecked():      
+                                opcion = 1
+                                Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
+                        else:
+                            self.dialogoDeMensaje("No existe espacio de solución")
                     else: 
                         self.dialogoDeMensaje("Introduce valores validos, no son aceptables para la generación del rango")
                 else:
