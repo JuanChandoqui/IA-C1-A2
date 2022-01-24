@@ -86,6 +86,10 @@ class Poblacion:
     def generaciones(self):
         for generacion in range(1,self.niteraciones):
             self.procesos()
+            puntos_x = [ i.x for i in self.individuos]
+            puntos_y = [ i.y for i in self.individuos]
+            Grafica.generarGraficaPuntos(puntos_x, puntos_y)
+            
         Grafica(self.mejores, self.peores, self.promedio)
     
     def evaluar_individuos(self):
