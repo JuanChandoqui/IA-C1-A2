@@ -65,16 +65,17 @@ class Poblacion:
 
     def inicializar(self):
         self.individuos = []
-        for _ in range(self.tamPobIni):
-            genotipo = [str(random.randint(0, 1))
-                        for _ in range(self.nbx+self.nby)]
-            self.individuos.append(Individuo(
-                genotipo, self.nbx, self.nby, self.x_min, self.y_min, self.resolucion_x, self.resolucion_y))
+        while len(self.individuos) < self.tamPobIni:
+            for _ in range(self.tamPobIni-len(self.individuos)):
+                genotipo = [str(random.randint(0, 1))
+                            for _ in range(self.nbx+self.nby)]
+                self.individuos.append(Individuo(
+                    genotipo, self.nbx, self.nby, self.x_min, self.y_min, self.resolucion_x, self.resolucion_y))
+            self.evaluar_individuos()
         self.procesos()
         
     
     def procesos(self):
-        self.evaluar_individuos()
         self.cruza()
         self.mutacion()
         self.evaluar_individuos()
@@ -82,20 +83,21 @@ class Poblacion:
         self.PeorCaso()
         self.Promedio()
         self.PODA()
+
     
     def generaciones(self):
         for generacion in range(1,self.niteraciones):
             self.procesos()
             puntos_x = [ i.x for i in self.individuos]
             puntos_y = [ i.y for i in self.individuos]
-            Grafica.generarGraficaPuntos(puntos_x, puntos_y)
+            # Grafica.generarGraficaPuntos(puntos_x, puntos_y)
             
         Grafica(self.mejores, self.peores, self.promedio)
     
     def evaluar_individuos(self):
         temp_individuos = []
         for individuo in self.individuos:
-            if individuo.i >= self.rango_i[0] and individuo.i <= self.rango_i[1] and individuo.j >= self.rango_j[0] and individuo.j <= self.rango_j[1]:
+            if individuo.i >= self.rango_i[0] and individuo.i <= self.rango_i[1] and individuo.j >= self.rango_j[0] and individuo.j <= self.rango_j[1] and individuo.calculate_aptitud()!=0:
                 temp_individuos.append(individuo)
         self.individuos = temp_individuos
 
@@ -174,21 +176,21 @@ class Poblacion:
             if self.individuos[index].calculate_aptitud() != 0:
                 temp_individuos.append(self.individuos[index])
         self.individuos = temp_individuos
-        
+
         aptitudes = [i.calculate_aptitud() for i in self.individuos]
         data = {'individuo': self.individuos, 'aptitud':aptitudes}
         df = DataFrame(data)
-        
-        temp_individuos = list(df.drop_duplicates(['aptitud'])['individuo']) # Elimina elementos repetidos (clones)
-        self.individuos = temp_individuos
-        
+
         if len(self.individuos) > self.tamPobMax: # Cuando excede el tamaño de la poblacion
-            if self.opcion == 0:
-               df = df.sort_values(by='aptitud',ascending=False)
-            else:
-                df = df.sort_values(by='aptitud',ascending=True)
-            temp_individuos = list(df['individuo'][0:self.tamPobMax])
-            self.individuos = temp_individuos
+            df = df.drop_duplicates(['aptitud']) # Elimina elementos repetidos (clones)
+            # self.individuos = temp_individuos
+            if len(self.individuos) > self.tamPobMax:
+                if self.opcion == 0:
+                    df = df.sort_values(by='aptitud',ascending=False)
+                else:
+                    df = df.sort_values(by='aptitud',ascending=True)
+                temp_individuos = list(df['individuo'][0:self.tamPobMax])
+                self.individuos = temp_individuos
             
 class Individuo:
     def __init__(self, genotipo, nbx, nby, x_min, y_min, rx, ry):
@@ -206,7 +208,7 @@ class Individuo:
         self.j = int(''.join(self.bits_j), 2)
 
     def set_x_y(self, a, c, rx, ry):
-        self.x = round(a + (self.i * rx), 2)       
+        self.x = round(a + (self.i * rx), 2)
         self.y = round(c + (self.j * ry), 2)
 
     def calculate_aptitud(self):  # fitness
