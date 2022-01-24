@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QMessageBox
 from PyQt5 import uic
 from numpy import double
 from Models.AG import Poblacion 
+import os
 
 class Window(QMainWindow):
     def __init__(self):
@@ -13,7 +14,11 @@ class Window(QMainWindow):
         self.radioButton_GraficaMarcadores.toggled.connect( lambda checked: checked and self.radioButton_GraficaLineas.setChecked(False))
         self.radioButton_Maximizar.setChecked(True)
 
-    def iniciarAlgoritmo(self):     
+    def iniciarAlgoritmo(self):
+        path = './Resources'
+        if not os.path.exists(path):
+            os.makedirs(f'{path}/Images')
+            os.makedirs(f'{path}/Video')
         tamPobIni = int(self.spinBox_tamPobIni.value())
         tamPobMax = int(self.spinBox_tamPobMax.value())
         resolucionX = double(self.doubleSpinBox__resolucionX.value())
