@@ -6,6 +6,7 @@ from statistics import mean
 from pandas import DataFrame
 
 from Models.grafica import Grafica
+from Models.video import generarVideo
 
 
 class Poblacion:
@@ -73,6 +74,9 @@ class Poblacion:
                 self.individuos.append(Individuo(
                     genotipo, self.nbx, self.nby, self.x_min, self.y_min, self.resolucion_x, self.resolucion_y))
             self.evaluar_individuos()
+        puntos_x = [ i.x for i in self.individuos]
+        puntos_y = [ i.y for i in self.individuos]
+        Grafica.generarGraficaPuntos(puntos_x, puntos_y, 0)
         self.procesos()
         
     
@@ -91,12 +95,13 @@ class Poblacion:
             self.procesos()
             puntos_x = [ i.x for i in self.individuos]
             puntos_y = [ i.y for i in self.individuos]
-            # Grafica.generarGraficaPuntos(puntos_x, puntos_y)
+            Grafica.generarGraficaPuntos(puntos_x, puntos_y, generacion)
         Grafica(self.mejores, self.peores, self.promedio)
         if(self.opcion_grafica == 1):
             Grafica.generarGrafica(self)
         elif (self.opcion_grafica == 2):
             Grafica.generarGraficaMarcadores(self)
+        generarVideo()
         
     
     def evaluar_individuos(self):

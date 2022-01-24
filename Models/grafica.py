@@ -19,13 +19,18 @@ class Grafica:
         plt.title("EvolucionGeneraciones")
         plt.show()
 
-    def generarGraficaPuntos(x, y):
+    def generarGraficaPuntos(x, y, generacion):
         plt.scatter(x, y, label="Individuo")
-        plt.legend()
         plt.xlabel("X")
         plt.ylabel("Y")
-        plt.title("EvolucionGeneraciones")
-        plt.show()
+        plt.title(f"Numero de generación: {generacion}")
+        fig=plt.figure()
+        # plt.ion()
+        # plt.ioff() 
+        plt.close(fig)     
+        plt.savefig(f'./Resources/Images/{generacion}.png')
+        plt.clf()
+
 
     def generarGraficaMarcadores(self):
         plt.plot(self.mejores, label="Mejor caso", marker = 'o')
