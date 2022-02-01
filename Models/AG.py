@@ -76,7 +76,7 @@ class Poblacion:
             self.evaluar_individuos()
         puntos_x = [ i.x for i in self.individuos]
         puntos_y = [ i.y for i in self.individuos]
-        Grafica.generarGraficaPuntos(puntos_x, puntos_y, 0)
+        Grafica.generarGraficaPuntos(puntos_x, puntos_y, 0,self.mejorSolucion())
         self.procesos()
         
     
@@ -95,7 +95,7 @@ class Poblacion:
             self.procesos()
             puntos_x = [ i.x for i in self.individuos]
             puntos_y = [ i.y for i in self.individuos]
-            Grafica.generarGraficaPuntos(puntos_x, puntos_y, generacion)
+            Grafica.generarGraficaPuntos(puntos_x, puntos_y, generacion,self.mejorSolucion())
         Grafica(self.mejores, self.peores, self.promedio)
         if(self.opcion_grafica == 1):
             Grafica.generarGrafica(self)
