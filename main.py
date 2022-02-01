@@ -67,6 +67,8 @@ class Window(QMainWindow):
             cromosomaNumerico = individuo['cromosomaN']
             fenotipo = individuo['fenotipo']
             fitness = individuo['fitness']
+            self.textEdit_mejorSolucion.setText(f" cromosoma: {cromosoma}\n cromosoma Numerico: {cromosomaNumerico} \n fenotipo: {fenotipo} \n fitness: {fitness}")
+            # self.dialogoDeMensaje(f"cromosoma: {cromosoma}\n cromosoma Numerico: {cromosomaNumerico} \n fenotipo: {fenotipo} \n fitness: {fitness}")
 
     def dialogoDeMensaje(self, texto:str):
         msg = QMessageBox()
@@ -74,7 +76,8 @@ class Window(QMainWindow):
         msg.setWindowTitle("Information")
         msg.exec_()
 
-    
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
