@@ -168,7 +168,7 @@ class Poblacion:
             self.mejores.append(max(aptitudes))
         else:
             self.mejores.append(min(aptitudes))
-    
+
     def PeorCaso(self):
         aptitudes = [i.calculate_aptitud() for i in self.individuos]
         if self.opcion == 0:
@@ -201,7 +201,19 @@ class Poblacion:
                     df = df.sort_values(by='aptitud',ascending=True)
                 temp_individuos = list(df['individuo'][0:self.tamPobMax])
                 self.individuos = temp_individuos
-            
+
+    def mejorSolucion(self):
+        aptitudes = [i.calculate_aptitud() for i in self.individuos]
+        data = {'individuo': self.individuos, 'aptitud':aptitudes}
+        df = DataFrame(data)
+        if self.opcion == 0:
+            df = df.sort_values(by='aptitud',ascending=False)
+        else:
+            df = df.sort_values(by='aptitud',ascending=True)
+        return {'cromosoma':df['individuo'][0].getGenotipo(),
+                'cromosomaN':df['individuo'][0].getGenotipoNumero(),
+                'fenotipo': (df['individuo'][0].x,df['individuo'][0].y),
+                'fitness': df['individuo'][0].calculate_aptitud()}
 class Individuo:
     def __init__(self, genotipo, nbx, nby, x_min, y_min, rx, ry):
         self.genotipo = genotipo
@@ -210,6 +222,9 @@ class Individuo:
 
     def getGenotipo(self):
         return ''.join(self.bits_i + self.bits_j)
+    
+    def getGenotipoNumero(self):
+        return int(''.join(self.bits_i + self.bits_j),2)
 
     def set_i_j(self, nbx, nby):
         self.bits_i = self.genotipo[0:nbx]

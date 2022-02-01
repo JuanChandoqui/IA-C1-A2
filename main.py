@@ -37,7 +37,8 @@ class Window(QMainWindow):
             opcion_grafica = 1
         elif (self.radioButton_GraficaMarcadores.isChecked()):
             opcion_grafica = 2
-
+        
+        poblacion = None
         if (tamPobIni > 0):
             if(tamPobIni <= tamPobMax):
                 if(numIteraciones > 0):
@@ -45,10 +46,10 @@ class Window(QMainWindow):
                         if((rangoXmin > 0 and rangoYmin > 0) or (rangoXmax > 0 and rangoYmax > 0)):
                             if self.radioButton_Maximizar.isChecked():
                                 opcion = 0
-                                Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
+                                poblacion=Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
                             elif self.radioButton_Minimizar.isChecked():      
                                 opcion = 1
-                                Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
+                                poblacion=Poblacion(tamPobIni, tamPobMax, resolucionX, resolucionY, rangoXmin, rangoXmax, rangoYmin, rangoYmax, probMutacionInd, probMutacionGen, numIteraciones, opcion, opcion_grafica)
                         else:
                             self.dialogoDeMensaje("No existe espacio de solución")
                     else: 
@@ -59,6 +60,13 @@ class Window(QMainWindow):
                 self.dialogoDeMensaje("El numero del tamaño de la población inicial no puede ser mayor al tamaño de la población máxima")
         else:
             self.dialogoDeMensaje("El tamaño de la población inicial no puede ser 0, introduzca un valor mayor a 0")
+        
+        if not poblacion is None:
+            individuo = poblacion.mejorSolucion()
+            cromosoma = individuo['cromosoma']
+            cromosomaNumerico = individuo['cromosomaN']
+            fenotipo = individuo['fenotipo']
+            fitness = individuo['fitness']
 
     def dialogoDeMensaje(self, texto:str):
         msg = QMessageBox()
