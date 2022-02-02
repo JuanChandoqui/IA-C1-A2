@@ -728,9 +728,9 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
    <widget class="QTextEdit" name="textEdit_mejorSolucion">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>120</x>
       <y>530</y>
-      <width>191</width>
+      <width>231</width>
       <height>91</height>
      </rect>
     </property>
